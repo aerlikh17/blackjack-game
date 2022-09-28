@@ -7,7 +7,7 @@
 
 ### Wireframe
 
-<img src="https://imgur.com/a/HP16qaT" width="900">
+<img src="https://imgur.com/kO1XgYv" width="900">
 
 ### Pseudocode
 

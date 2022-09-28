@@ -3,4 +3,11 @@
 ### Contents
 
 - Wireframe
-- Pseudocode# blackjack-game
+- Pseudocode 
+
+### Wireframe
+
+<img src="https://imgur.com/a/HP16qaT" width="900">
+
+### Pseudocode
+

@@ -1,22 +1,37 @@
 // Constants
 
 const suits = ["d", "c", "h", "s"];
-const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "K", "Q", "A"];
+const values = ["02", "03", "04", "05", "06", "07", "08", "09", "10", "J", "K", "Q", "A"];;
+const guide = {
+    "02": 2,
+    "03": 3,
+    "04": 4,
+    "05": 5,
+    "06": 6,
+    "07": 7,
+    "08": 8,
+    "09": 9,
+    "10": 10,
+    "J": 10,
+    "Q": 10,
+    "K": 10,
+    "A": 11,
+}
 
 // Variables
 
- let dealerScore = 0;
+ let dealerScore = 0; 
  let playerScore = 0;
 
- let playerAceCard = 0;
- let dealerAceCard = 0;
+ let playerAceCount = 0;
+ let dealerAceCount = 0;
 
  let playersHand = [];
  let dealersHand = [];
 
  let hiddenCard;
 
- let hit = true; 
+ let hit = true; //allows the player to draw while sum <= 21
 
  let deck = [];
 
@@ -42,90 +57,81 @@ const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "K", "Q", "A"
 
  // Event listeners
 
- dealButton.addEventListener("click", initialDeal);
+ dealButton.addEventListener("click", startGame);
  stayButton.addEventListener("click", stay);
  hitButton.addEventListener("click", hitMe);
-
-// let d2 = document.getElementById("d2")
-// d2.style.backgroundImage = "url('/card-deck-css/images/backs/blue.svg')"
-
-// let clickedCard = document.getElementById("d2")
-
-// clickedCard.addEventListener("click", putCard)
-
-// function putCard(){
-//     d2.style.backgroundImage = "url('/card-deck-css/images/diamonds/diamonds-r02.svg')"
-// }
 
 // Functions
 
 // initialize()
 
+function buildDeck() {
 suits.forEach((suit) => values.forEach(function(value){
         deck.push(suit+value);
       }
-));
+))};
 
 function shuffleDeck() {
     deck = deck.sort(() => 0.5 - Math.random());
 }
 
-function initialDeal() {
+function startGame() {
     // shuffleDeck();
 
-    dealersHand.push(deck[0]);
-    playersHand.push(deck[1]);
-    dealersHand.push(deck[2]);
-    playersHand.push(deck[3]);
+//     dealersHand.push(deck[0]);
+//     playersHand.push(deck[1]);
+//     dealersHand.push(deck[2]);
+//     playersHand.push(deck[3]);
 
-    setTimeout(() => {
-        dealerCard1.classList.add(deck[0]);
-    // deck.shift();
-    dealerCard1.classList.remove("hidden");
+//     setTimeout(() => {
+//     dealerCard1.classList.add(deck[0]);
+//     // deck.shift();
+//     dealerCard1.classList.remove("hidden");
 
-    // playersHand.push(deck[0]);
-    playersCard1.classList.add(deck[1]);
-    // deck.shift();
-    playersCard1.classList.remove("hidden");
+//     // playersHand.push(deck[0]);
+//     playersCard1.classList.add(deck[1]);
+//     // deck.shift();
+//     playersCard1.classList.remove("hidden");
 
-    // dealersHand.push(deck[0]);
-    dealerCard2.classList.add(deck[2]);
-    // deck.shift();
-    dealerCard2.classList.remove("hidden");
+//     // dealersHand.push(deck[0]);
+//     dealerCard2.classList.add(deck[2]);
+//     // deck.shift();
+//     dealerCard2.classList.remove("hidden");
 
-    // playersHand.push(deck[0]);
-    playersCard2.classList.add(deck[3]);
-    // deck.shift();
-    playersCard2.classList.remove("hidden");
-   }, 500);
+//     // playersHand.push(deck[0]);
+//     playersCard2.classList.add(deck[3]);
+//     // deck.shift();
+//     playersCard2.classList.remove("hidden");
+//    }, 500);
 
     
-    setTimeout(() => {
-        deck.shift();
-        deck.shift();
-        deck.shift();
-        deck.shift();
-    }, 1000);
+//     setTimeout(() => {
+//         deck.shift();
+//         deck.shift();
+//         deck.shift();
+//         deck.shift();
+//     }, 1000);
+// }
 
-    // dealersHand.push(deck[0]);
-    // dealerCard1.classList.add(deck[0]);
-    // deck.shift();
-    // dealerCard1.classList.remove("hidden");
+    dealersHand.push(deck[0]);
+    dealerCard1.classList.add(deck[0]);
+    deck.shift();
+    dealerCard1.classList.remove("hidden");
 
-    // playersHand.push(deck[0]);
-    // playersCard1.classList.add(deck[0]);
-    // deck.shift();
-    // playersCard1.classList.remove("hidden");
+    playersHand.push(deck[0]);
+    playersCard1.classList.add(deck[0]);
+    deck.shift();
+    playersCard1.classList.remove("hidden");
 
-    // dealersHand.push(deck[0]);
-    // dealerCard2.classList.add(deck[0]);
-    // deck.shift();
-    // dealerCard2.classList.remove("hidden");
+    dealersHand.push(deck[0]);
+    dealerCard2.classList.add(deck[0]);
+    deck.shift();
+    dealerCard2.classList.remove("hidden");
 
-    // playersHand.push(deck[0]);
-    // playersCard2.classList.add(deck[0]);
-    // deck.shift();
-    // playersCard2.classList.remove("hidden");
+    playersHand.push(deck[0]);
+    playersCard2.classList.add(deck[0]);
+    deck.shift();
+    playersCard2.classList.remove("hidden");
     
 }
 
@@ -142,15 +148,63 @@ function initialDeal() {
 //     return combinedPath;
 // }
 
-function displayCards() {
+// function displayCards() {
     
+// }
+
+// function dealersFirstCard() {
+
+// }
+
+// function stay() {
+
+
+// }
+    
+//     updateScore();
+//     updateDeck();
+//     checkScore();
+// }
+
+// function checkScore() {
+//     if (.points>21){
+//         document.getElementById("game-results").innerHTML = "YOU LOST"
+//     }
+// }
+
+function updateScore() {
+
 }
 
-function stay() {
+function updateDeck() {
 
+}
+
+function initialize() {
+    buildDeck();
+    shuffleDeck();
+    startGame();
+}
+
+function checkAce() {
+    if (card[0] == "A") {
+        return 1;
+    }
+    return 0;
+}
+
+function cardValue() {
+   
+}
+
+function reduceAce(playerScore, playerAceCount) {
+    while (playerScore > 21 && playerAceCount > 0) {
+        playerScore -= 10;
+        playerAceCount -= 1;
+    }
+    return playerScore;
 }
 
 function hitMe() {
-
+    
 }
-

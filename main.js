@@ -32,15 +32,19 @@ const guide = {
  let hiddenCard;
 
  let hit = true; //allows the player to draw while sum <= 21
+ let turnOver = false;
 
  let deck = [];
 
+ let player;
+ let dealer;
 
  // Cached elements
 
  const dealButton = document.getElementById("deal");
  const stayButton = document.getElementById("stay");
  const hitButton = document.getElementById("hit");
+ const message = document.getElementById("game-results");
 
  const dealerCard1 = document.getElementById("dc1");
  const dealerCard2 = document.getElementById("dc2");
@@ -63,7 +67,7 @@ const guide = {
 
 // Functions
 
-// initialize()
+initialize()
 
 function buildDeck() {
 suits.forEach((suit) => values.forEach(function(value){
@@ -76,135 +80,146 @@ function shuffleDeck() {
 }
 
 function startGame() {
-    // shuffleDeck();
 
-//     dealersHand.push(deck[0]);
-//     playersHand.push(deck[1]);
-//     dealersHand.push(deck[2]);
-//     playersHand.push(deck[3]);
+    if (dealersHand.length === 0) {
 
-//     setTimeout(() => {
-//     dealerCard1.classList.add(deck[0]);
-//     // deck.shift();
-//     dealerCard1.classList.remove("hidden");
+        dealersHand.push(deck[0]);
+        dealerCard1.classList.add(deck[0]);
+        deck.shift();
+        dealerCard1.classList.remove("hidden");
 
-//     // playersHand.push(deck[0]);
-//     playersCard1.classList.add(deck[1]);
-//     // deck.shift();
-//     playersCard1.classList.remove("hidden");
+        playersHand.push(deck[0]);
+        playersCard1.classList.add(deck[0]);
+        deck.shift();
+        playersCard1.classList.remove("hidden");
 
-//     // dealersHand.push(deck[0]);
-//     dealerCard2.classList.add(deck[2]);
-//     // deck.shift();
-//     dealerCard2.classList.remove("hidden");
+        dealersHand.push(deck[0]);
+        dealerCard2.classList.add(deck[0]);
+        deck.shift();
+        dealerCard2.classList.remove("hidden");
 
-//     // playersHand.push(deck[0]);
-//     playersCard2.classList.add(deck[3]);
-//     // deck.shift();
-//     playersCard2.classList.remove("hidden");
-//    }, 500);
-
-    
-//     setTimeout(() => {
-//         deck.shift();
-//         deck.shift();
-//         deck.shift();
-//         deck.shift();
-//     }, 1000);
-// }
-
-    dealersHand.push(deck[0]);
-    dealerCard1.classList.add(deck[0]);
-    deck.shift();
-    dealerCard1.classList.remove("hidden");
-
-    playersHand.push(deck[0]);
-    playersCard1.classList.add(deck[0]);
-    deck.shift();
-    playersCard1.classList.remove("hidden");
-
-    dealersHand.push(deck[0]);
-    dealerCard2.classList.add(deck[0]);
-    deck.shift();
-    dealerCard2.classList.remove("hidden");
-
-    playersHand.push(deck[0]);
-    playersCard2.classList.add(deck[0]);
-    deck.shift();
-    playersCard2.classList.remove("hidden");
-    
+        playersHand.push(deck[0]);
+        playersCard2.classList.add(deck[0]);
+        deck.shift();
+        playersCard2.classList.remove("hidden");
+    }else if (turnOver === true){
+        resetGame();
+    }
+    checkScore();
 }
 
-// let path = "/card-deck-css/images/";
-// let test = "diamonds-r02";
-// // /images/diamonds/diamonds-r02
+// function resetGame() {
 
-// function pathMaker(card) {
-//     let combinedPath = path;
-//     let split = card.split("-");
-//     combinedPath += split[0];
-//     combinedPath += "/" + card + ".svg";
-//     console.log(combinedPath)
-//     return combinedPath;
-// }
+// dealerScore = 0; 
+// playerScore = 0;
 
-// function displayCards() {
+// playerAceCount = 0;
+// dealerAceCount = 0;
+
+// } 
+
+function hitMe() {
     
-// }
+    if (playersHand.length <= 2 && playerScore < 21) {
+        playersHand.push(deck[0]);
+        playersCard3.classList.add(deck[0]);
+        deck.shift();
+        playersCard3.classList.remove("hidden");
+        checkScore()
+        
+    }else if (playersHand.length <= 3 && playerScore < 21){
+        
+            playersHand.push(deck[0]);
+            playersCard4.classList.add(deck[0]);
+            deck.shift();
+            playersCard4.classList.remove("hidden");
+            checkScore()
+        
+        }else if (playersHand.length <= 4 && playerScore < 21){
 
-// function dealersFirstCard() {
+            playersHand.push(deck[0]);
+            playersCard5.classList.add(deck[0]);
+            deck.shift();
+            playersCard5.classList.remove("hidden");
+            checkScore()
 
-// }
-
-// function stay() {
-
-
-// }
-    
-//     updateScore();
-//     updateDeck();
-//     checkScore();
-// }
-
-// function checkScore() {
-//     if (.points>21){
-//         document.getElementById("game-results").innerHTML = "YOU LOST"
-//     }
-// }
-
-function updateScore() {
-
+        }else if (playersHand.length <= 5 && playerScore === 21) {
+            message.innerHTML = "YOU WON! PRESS DEAL TO PLAY AGAIN";
+            resetGame();
+            
+        }else{
+            message.innerHTML = "YOU LOST! PRESS DEAL TO PLAY AGAIN";
+            resetGame();
+        }
 }
 
-function updateDeck() {
+
+
+function stay() {
+
+    if (dealersHand.length > 2) {
+
+        dealersHand.push(deck[0]);
+        dealerCard3.classList.add(deck[0]);
+        deck.shift();
+        dealerCard1.classList.remove("hidden");
+        dealerCard3.classList.remove("hidden");
+    
+    }
+}
+
+function checkScore() {
+    let teamPlayerScore = 0;
+    let tempDealerScore = 0;
+
+    for(let card of playersHand)
+        if (card[1] === "J" || card[1] === "Q" || card[1] === "K" || card[1] === "1") {
+            teamPlayerScore += 10;
+       
+        }else if (card[1] === "0") {
+            teamPlayerScore += Number(card[2]);
+       
+        }else if (card[1] === "A") {
+            playerAceCount += 1;
+            teamPlayerScore += 11; 
+            if (teamPlayerScore > 21 && playerAceCount > 0) {
+                teamPlayerScore -= 10;
+                playerAceCount -= 1;
+            }
+       
+        }
+        if (teamPlayerScore > 21 && playerAceCount < 1) {
+            message.innerHTML = "YOU LOST! PRESS DEAL TO PLAY AGAIN";
+        }
+    
+    for(let card of dealersHand)
+        if (card[1] === "J" || card[1] === "Q" || card[1] === "K" || card[1] === "1") {
+            tempDealerScore += 10;
+        }else if (card[1] === "0") {
+            tempDealerScore += Number(card[2]);
+        }else if (card[1] === "A") {
+            dealerAceCount += 1;
+            tempDealerScore += 1;
+            if (tempDealerScore > 21 && dealerAceCount > 0) {
+                tempDealerScore -= 10;
+                dealerAceCount -= 1;
+            }
+        }
+        if (tempDealerScore > 21 && dealerAceCount < 1) {
+            message.innerHTML = "YOU WON! PRESS DEAL TO PLAY AGAIN";
+        }
+        
+        playerScore = teamPlayerScore;
+        dealerScore = tempDealerScore;
+        console.log("player", teamPlayerScore)
+        console.log("dealer", tempDealerScore)
+    }
+
+function checkResults() {
 
 }
 
 function initialize() {
     buildDeck();
     shuffleDeck();
-    startGame();
-}
-
-function checkAce() {
-    if (card[0] == "A") {
-        return 1;
-    }
-    return 0;
-}
-
-function cardValue() {
-   
-}
-
-function reduceAce(playerScore, playerAceCount) {
-    while (playerScore > 21 && playerAceCount > 0) {
-        playerScore -= 10;
-        playerAceCount -= 1;
-    }
-    return playerScore;
-}
-
-function hitMe() {
-    
 }

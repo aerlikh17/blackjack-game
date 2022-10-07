@@ -6,11 +6,6 @@ html, body {
     background-color: green;
 }
 
-/* #d2 {
-    width: 223px;
-    height: 311px;
-} */
-
 .game-container{
     padding: 10px;
 }
@@ -37,7 +32,7 @@ button {
     font-size: 20px;
   }
   
-  button:hover {
+button:hover {
     cursor: pointer;
     background-color: black;
     color: white;
@@ -45,4 +40,9 @@ button {
 
 .hidden {
     visibility: hidden;
+}
+
+
+.card {
+    font-size: 30px;
 }

@@ -1,22 +1,8 @@
 // Constants
 
 const suits = ["d", "c", "h", "s"];
-const values = ["02", "03", "04", "05", "06", "07", "08", "09", "10", "J", "K", "Q", "A"];;
-const guide = {
-    "02": 2,
-    "03": 3,
-    "04": 4,
-    "05": 5,
-    "06": 6,
-    "07": 7,
-    "08": 8,
-    "09": 9,
-    "10": 10,
-    "J": 10,
-    "Q": 10,
-    "K": 10,
-    "A": 11,
-}
+const values = ["02", "03", "04", "05", "06", "07", "08", "09", "10", "J", "K", "Q", "A"];
+
 
 // Variables
 
@@ -33,6 +19,7 @@ const guide = {
 
  let hit = true; //allows the player to draw while sum <= 21
  let turnOver = false;
+ let deal = false;
 
  let deck = [];
 
@@ -44,7 +31,11 @@ const guide = {
  const dealButton = document.getElementById("deal");
  const stayButton = document.getElementById("stay");
  const hitButton = document.getElementById("hit");
+
  const message = document.getElementById("game-results");
+
+ const dealersResult = document.getElementById("dealers-score");
+ const playersResult = document.getElementById("players-score");
 
  const dealerCard1 = document.getElementById("dc1");
  const dealerCard2 = document.getElementById("dc2");
@@ -61,28 +52,31 @@ const guide = {
 
  // Event listeners
 
- dealButton.addEventListener("click", startGame);
- stayButton.addEventListener("click", stay);
- hitButton.addEventListener("click", hitMe);
+ dealButton.addEventListener("click", resetGame);
+ stayButton.addEventListener("click", () => {if (deal) stay()});
+ hitButton.addEventListener("click", () => {if (deal) hitMe()});
 
 // Functions
 
 initialize()
 
 function buildDeck() {
+  
 suits.forEach((suit) => values.forEach(function(value){
         deck.push(suit+value);
       }
 ))};
 
 function shuffleDeck() {
+ 
     deck = deck.sort(() => 0.5 - Math.random());
 }
 
 function startGame() {
+deal = true;
 
     if (dealersHand.length === 0) {
-
+       
         dealersHand.push(deck[0]);
         dealerCard1.classList.add(deck[0]);
         deck.shift();
@@ -102,32 +96,55 @@ function startGame() {
         playersCard2.classList.add(deck[0]);
         deck.shift();
         playersCard2.classList.remove("hidden");
+    
     }else if (turnOver === true){
         resetGame();
     }
-    checkScore();
+    checkScore()
+
+    dealButton.innerHTML = "RESET";
 }
 
-// function resetGame() {
+function resetGame() {
+    
+    dealersHand = [];
+    playersHand = [];
 
-// dealerScore = 0; 
-// playerScore = 0;
+    dealersResult.innerHTML = "";
+    playersResult.innerHTML = "";
 
-// playerAceCount = 0;
-// dealerAceCount = 0;
+    dealerCard1.className = "card hidden back-red";
+    dealerCard2.className = "card hidden";
+    dealerCard3.className = "card hidden";
+    dealerCard4.className = "card hidden";
+    dealerCard5.className = "card hidden";
 
-// } 
+    playersCard1.className = "card hidden";
+    playersCard2.className = "card hidden";
+    playersCard3.className = "card hidden";
+    playersCard4.className = "card hidden";
+    playersCard5.className = "card hidden";
+
+    deal = false;
+
+    deck = [];
+    message.innerHTML = "";
+   
+    initialize()
+    startGame()
+
+}
 
 function hitMe() {
-    
-    if (playersHand.length <= 2 && playerScore < 21) {
+
+    if (playersHand.length <= 2 && playerScore < 21 && dealerScore < 21) {
         playersHand.push(deck[0]);
         playersCard3.classList.add(deck[0]);
         deck.shift();
         playersCard3.classList.remove("hidden");
         checkScore()
         
-    }else if (playersHand.length <= 3 && playerScore < 21){
+    }else if (playersHand.length <= 3 && playerScore < 21 && dealerScore < 21){
         
             playersHand.push(deck[0]);
             playersCard4.classList.add(deck[0]);
@@ -135,7 +152,7 @@ function hitMe() {
             playersCard4.classList.remove("hidden");
             checkScore()
         
-        }else if (playersHand.length <= 4 && playerScore < 21){
+        }else if (playersHand.length <= 4 && playerScore < 21 && dealerScore < 21){
 
             playersHand.push(deck[0]);
             playersCard5.classList.add(deck[0]);
@@ -143,56 +160,67 @@ function hitMe() {
             playersCard5.classList.remove("hidden");
             checkScore()
 
-        }else if (playersHand.length <= 5 && playerScore === 21) {
-            message.innerHTML = "YOU WON! PRESS DEAL TO PLAY AGAIN";
-            resetGame();
-            
         }else{
-            message.innerHTML = "YOU LOST! PRESS DEAL TO PLAY AGAIN";
-            resetGame();
+            message.innerHTML = "YOU LOST! PRESS RESET BUTTON TO PLAY AGAIN";
         }
 }
-
 
 
 function stay() {
 
-    if (dealersHand.length > 2) {
+turnOver = true;
 
-        dealersHand.push(deck[0]);
-        dealerCard3.classList.add(deck[0]);
-        deck.shift();
-        dealerCard1.classList.remove("hidden");
-        dealerCard3.classList.remove("hidden");
-    
+if (dealerScore < 17) {
+    if (dealersHand.length <= 2 && playerScore < 21 && dealerScore < 21) {
+            dealersHand.push(deck[0]);
+            dealerCard3.classList.add(deck[0]);
+            deck.shift();
+            dealerCard1.classList.remove("back-red");
+            dealerCard3.classList.remove("hidden");
+            checkScore();
+
+        }else if (dealersHand.length <= 3 && playerScore < 21 && dealerScore < 21) {
+                dealersHand.push(deck[0]);
+                dealerCard4.classList.add(deck[0]);
+                deck.shift();
+                console.log("hidden else if")
+                dealerCard4.classList.remove("hidden");
+                checkScore();
+
+        }else if (dealersHand.length <= 4 && playerScore < 21 && dealerScore < 21) {
+            dealersHand.push(deck[0]);
+            dealerCard5.classList.add(deck[0]);
+            deck.shift();
+            dealerCard5.classList.remove("hidden");
+            checkScore();
+        }
+    }else{
+        dealerCard1.classList.remove("back-red");
+        checkScore();
     }
 }
 
 function checkScore() {
-    let teamPlayerScore = 0;
+    let tempPlayerScore = 0;
     let tempDealerScore = 0;
 
-    for(let card of playersHand)
+    for (let card of playersHand)
         if (card[1] === "J" || card[1] === "Q" || card[1] === "K" || card[1] === "1") {
-            teamPlayerScore += 10;
+            tempPlayerScore += 10;
        
         }else if (card[1] === "0") {
-            teamPlayerScore += Number(card[2]);
+            tempPlayerScore += Number(card[2]);
        
         }else if (card[1] === "A") {
             playerAceCount += 1;
-            teamPlayerScore += 11; 
-            if (teamPlayerScore > 21 && playerAceCount > 0) {
-                teamPlayerScore -= 10;
+            tempPlayerScore += 11; 
+            if (tempPlayerScore > 21 && playerAceCount > 0) {
+                tempPlayerScore -= 10;
                 playerAceCount -= 1;
             }
-       
-        }
-        if (teamPlayerScore > 21 && playerAceCount < 1) {
-            message.innerHTML = "YOU LOST! PRESS DEAL TO PLAY AGAIN";
         }
     
-    for(let card of dealersHand)
+    for (let card of dealersHand)
         if (card[1] === "J" || card[1] === "Q" || card[1] === "K" || card[1] === "1") {
             tempDealerScore += 10;
         }else if (card[1] === "0") {
@@ -206,20 +234,70 @@ function checkScore() {
             }
         }
         if (tempDealerScore > 21 && dealerAceCount < 1) {
-            message.innerHTML = "YOU WON! PRESS DEAL TO PLAY AGAIN";
+            message.innerHTML = "YOU WON! PRESS RESET BUTTON TO PLAY AGAIN";
         }
-        
-        playerScore = teamPlayerScore;
+
+        if (tempPlayerScore === 21) {
+            message.innerHTML = "YOU GOT BLACKJACK! PRESS RESET BUTTON TO PLAY AGAIN";
+        }
+
+        if (tempDealerScore === 21) {
+            message.innerHTML = "DEALER GOT BLACKJACK! PRESS RESET BUTTON TO PLAY AGAIN";
+        }
+
+        if (tempPlayerScore < 21 && tempDealerScore > 21) {
+            message.innerHTML = "DEALER LOST! PRESS RESET BUTTON TO PLAY AGAIN";
+        }
+
+        if (tempPlayerScore >= 22 && tempDealerScore < 21){
+              message.innerHTML = "YOU LOST! PRESS RESET BUTTON TO PLAY AGAIN";
+        }
+
+        if (tempPlayerScore === tempDealerScore) {
+            message.innerHTML = "IT'S A TIE! PRESS RESET BUTTON TO PLAY AGAIN";
+        }
+
+
+        playerScore = tempPlayerScore;
         dealerScore = tempDealerScore;
-        console.log("player", teamPlayerScore)
-        console.log("dealer", tempDealerScore)
+       
+        console.log("turnover", turnOver)
+
+        if (turnOver === false) {
+            console.log("trigger")
+            console.log(dealerScore - firstDealerCard(dealersHand[0]))
+            dealersResult.innerHTML = dealerScore - firstDealerCard(dealersHand[0]);
+        }else{
+            
+            console.log("total score")
+            dealersResult.innerHTML = dealerScore;
+        }
+
+        playersResult.innerHTML = playerScore;
+
     }
-
-function checkResults() {
-
-}
 
 function initialize() {
     buildDeck();
     shuffleDeck();
+}
+
+function firstDealerCard(card) {
+
+    let tempScore = 0;
+
+    if (card[1] === "J" || card[1] === "Q" || card[1] === "K" || card[1] === "1") {
+        tempScore += 10;
+    }else if (card[1] === "0") {
+        tempScore += Number(card[2]);
+    }else if (card[1] === "A") {
+        dealerAceCount += 1;
+        tempScore += 1;
+        if (tempScore > 21 && dealerAceCount > 0) {
+            tempScore -= 10;
+            dealerAceCount -= 1;
+        }
+    }
+
+    return tempScore;
 }

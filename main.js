@@ -107,8 +107,16 @@ deal = true;
 
 function resetGame() {
     
+    turnOver = false;
+
     dealersHand = [];
     playersHand = [];
+
+    playerScore = 0;
+    dealerScore = 0;
+
+    playerAceCount = 0;
+    dealerAceCount = 0;
 
     dealersResult.innerHTML = "";
     playersResult.innerHTML = "";
@@ -268,7 +276,6 @@ function checkScore() {
             console.log(dealerScore - firstDealerCard(dealersHand[0]))
             dealersResult.innerHTML = dealerScore - firstDealerCard(dealersHand[0]);
         }else{
-            
             console.log("total score")
             dealersResult.innerHTML = dealerScore;
         }

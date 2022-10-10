@@ -6,7 +6,7 @@
   cursor: pointer;
   /* Set the card's dimensions, and size it relative to
      it's font size. */
-  font-size: inherit;
+  /* font-size: inherit; */
   width: 4em;
   height: 5.5em;
   /* Add a default background color and border. */

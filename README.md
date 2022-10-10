@@ -31,8 +31,6 @@ Basic rules of the game:
 
 ### _Game screenshots:_
 
-&nbsp;
-
 _This is how the game board looks when first cards are dealt:_
 ![Game Screenshot](/images/blackjack-game.png "Blackjack Game") 
 

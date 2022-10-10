@@ -46,8 +46,6 @@ _An example of a lose situation (player lost as they got more than 21 points in 
 
 For this project, I used HTML, CSS and JavaScript.
 
-&nbsp;
-
 ### _Getting started_
 
 Instructions on how to play the game:
@@ -62,8 +60,6 @@ Instructions on how to play the game:
 The link to the game is below. 
 
 [Click here to play](https://aerlikh17.github.io/blackjack-game/)
-
-&nbsp;
 
 ### _Next steps_
 

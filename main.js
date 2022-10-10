@@ -17,14 +17,10 @@ const values = ["02", "03", "04", "05", "06", "07", "08", "09", "10", "J", "K", 
 
  let hiddenCard;
 
- let hit = true; //allows the player to draw while sum <= 21
  let turnOver = false;
  let deal = false;
 
  let deck = [];
-
- let player;
- let dealer;
 
  // Cached elements
 

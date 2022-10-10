@@ -50,7 +50,16 @@ For this project, I used HTML, CSS and JavaScript.
 
 ### _Getting started_
 
-To start the game, click on the "DEAL" button. The link to the game is below. 
+Instructions on how to play the game:
+
+1. To start the game, click on the "DEAL" button. 
+2. If both yours and dealer's score is below 21, you can choose to "HIT" or "STAY".
+3. You can click "HIT" as many times as you want as long as your score is below 21. 
+4. If you choose to "STAY" and dealer's score is below 17, dealer's first card will be revealed and they will take another card. 
+5. Alternatively, if you choose to "STAY" and dealer's score is above 17, only dealer's first card will be revealed but they will not get a third card. 
+6. Follow messages on the bottom of the game board. For example, press "RESET" to start the game again. 
+
+The link to the game is below. 
 
 [Click here to play](https://aerlikh17.github.io/blackjack-game/)
 
@@ -58,8 +67,10 @@ To start the game, click on the "DEAL" button. The link to the game is below.
 
 ### _Next steps_
 
-* Adding sounds to: buttons when clicked, win/loose messages
-* Option to place bets
+* Add sounds to: buttons when clicked, win/loose messages.
+* Option to place bets to make game more interactive. 
+* Render cards in real time (so that you can have as many cards displayed as needed) instead of having a fixed number of 5 cards per player. Even though a chance of going over 5 cards is small, it is still possible. 
+* Add media queries to CSS to make it mobile screen size compatible. 
 
 
 

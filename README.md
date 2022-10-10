@@ -1,12 +1,13 @@
-# Project #1 - Blackjack (HTML/CSS/JS)
+# Project #1 - Blackjack 
 
-### Contents
+### _Contents_
 
-- Game Description
-- Wireframe
-- Pseudocode 
+- Game description + Screenshots
+- Technologies used
+- Gettin started
+- Next steps 
 
-### Game Description
+### _Game description_
 
 Blackjack consists of 52 cards and 2 players: a player and a dealer. The goal of the game is to beat the dealer. There are a few ways to do so:
 1. Get as close to 21 points as possible.
@@ -39,63 +40,21 @@ Rules of the game:
 2. Player goes first and they have an option to "hit" to get more cards or "stay" to skip the round. There is no limit on the number of cards you can take. 
 3. Dealer flips the first card. If dealer's total hand value is 16 or under they have to take another card. If it is 17 or higher, they have to "stay" with their hand. 
 
-### Wireframe
+&nbsp;
 
-[Link](https://imgur.com/kO1XgYv)
+![Game Screenshot](/images/blackjack-game.png "Blackjack Game") 
 
-### Pseudocode
+&nbsp;
 
-### This is how the game goes:
-
-1. Cards are dealt (initialize())
-2. Cards are displayed and showed to the player, and score is shown 
-3. Dealer's cards are shown
-4. Score is shown
-5. Total is calculated
-6. Hit or stay (player)
-7. Hit or stay (dealer)
-8. New cards
-9. If ace is up, player can choose 1 or 11
+![Game Screenshot](/images/blackjack-game-lost.png "Blackjack Game Loose Situation")
 
 
-First steps:
-1. Define constants
-- Cards
-- Card values
+### _Technologies used_
 
-2. Define variables with no value assigned 
-- Player
-- Current Score 
-- Deck 
+HTML, CSS, JavaScript
 
-3. Select and save cache elements that will be used throughout the code multiple times
+### _Getting started_
 
-4. Add event listeners
+### _Next steps_
 
 
-Functions:
-1. Invoke initialize function 
-2. Function for building a deck (render()) (making an array of 52 card objects) - needs to be randomized
-3. Function for initial user interaction
-4. Game starts with shuffle deck function - 2 cards to dealer (one is facing down), 2 to player
-5. Display result + message (win/lose)
-
-If user "hits":
-1. Shuffle card function again
-2. Display result + message (win/lose)
-3. Bust -> win message
-
-If user "stands":
-1. If dealer total is less than player's: draw until it is not
-2. Display result + message (win/lose)
-
-Functions:
-1. initialize()
-2. shuffleDeck()
-3. dealCards()
-- initial deal
-5. hitMe() 
-6. stay()
-7. checkScore()
-8. updateDeck()
-9. chooseValue()

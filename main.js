@@ -136,7 +136,6 @@ function resetGame() {
    
     initialize()
     startGame()
-
 }
 
 function hitMe() {

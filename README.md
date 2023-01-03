@@ -4,7 +4,7 @@
 
 - Game description
 - Technologies used
-- Gettin started
+- Getting started
 - Next steps 
 
 ### _Game description_
